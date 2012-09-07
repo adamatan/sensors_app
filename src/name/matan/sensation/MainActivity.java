@@ -36,7 +36,8 @@ public class MainActivity extends Activity {
 		tosButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//assertInput();
+				Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

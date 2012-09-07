@@ -26,9 +26,18 @@
     <string name="tos_alert_button_yes">Read it</string>
     <string name="tos_alert_button_no">Never mind</string>
     <string name="tos_alert_no_toast">Saved by the bell! Good idea.</string>
-    
+
     <!-- TOS page -->
     <string name="tos_activity_title">Terms of Service</string>
     <string name="tos_activity_url">https://sites.google.com/site/edgeofinternet/agreement</string>
+    <string name="title_activity_sensor_management">Manage Sensor Logging</string>
+    
+    <!-- Sensor Management Activity -->
+    <string name="sensor_management_title">Manage Sensor Logging</string>
+    <string name="sensor_management_all_on">All ON</string>
+    <string name="sensor_management_all_off">All OFF</string>
+    <string name="sensor_management_more_data">More...</string>
+    <string name="sensor_management_accelerometer_label">Accelerometer</string>
+    
 
 </resources>
