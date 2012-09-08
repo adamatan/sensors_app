@@ -36,8 +36,11 @@
     <string name="sensor_management_title">Manage Sensor Logging</string>
     <string name="sensor_management_all_on">All ON</string>
     <string name="sensor_management_all_off">All OFF</string>
-    <string name="sensor_management_more_data">More...</string>
+    <string name="sensor_management_more_data">More…</string>
     <string name="sensor_management_accelerometer_label">Accelerometer</string>
+    <string name="sensor_management_gps_label">GPS</string>
+    <string name="sensor_management_cell_location_label">Cell Location</string>
+    <string name="sensor_management_gyro_label">Gyro</string>
     
 
 </resources>

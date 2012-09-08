@@ -11,8 +11,8 @@ public class SensorManagementActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensor_management);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_sensor_management);        
+        
     }
 
     @Override
