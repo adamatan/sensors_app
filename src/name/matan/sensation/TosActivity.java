@@ -1,11 +1,11 @@
 package name.matan.sensation;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.support.v4.app.NavUtils;
 
 /**
  * Agreement page. Contents is downloaded from the web upon initialization.

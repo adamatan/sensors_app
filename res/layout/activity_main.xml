@@ -1,7 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-     >
+    android:background="@drawable/retina_wood"
+    android:tileMode="repeat" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +64,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <RadioGroup
-                android:id="@+id/radioGroup1"
+                android:id="@+id/genderRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -71,7 +72,7 @@
                 <!-- Male - blue -->
 
                 <RadioButton
-                    android:id="@+id/radio0"
+                    android:id="@+id/genderMaleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -83,7 +84,7 @@
                 <!-- Female - fuchsia! -->
 
                 <RadioButton
-                    android:id="@+id/radio1"
+                    android:id="@+id/genderFemaleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gender_female"
@@ -110,7 +111,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <NumberPicker
-                android:id="@+id/np"
+                android:id="@+id/ageNumberPicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="10dip" />

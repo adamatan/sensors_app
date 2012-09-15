@@ -1,14 +1,14 @@
 package name.matan.sensation;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ToggleButton;
-import android.support.v4.app.NavUtils;
 
 public class SensorManagementActivity extends Activity {
 
