@@ -1,5 +1,7 @@
 package name.matan.sensation;
 
+import java.util.regex.Pattern;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -21,31 +24,46 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private NumberPicker np;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		setNumberPicker();
+		setAgreeToTosButton();
+	}
+
+	private void setAgreeToTosButton() {
+		Button tosButton = (Button) findViewById(R.id.agreeToTosButton);
+		tosButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (isInputOK()) {
+					Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
+					startActivity(intent);
+				}
+			}
+		});
+
+	}
+
+	private void setNumberPicker() {
 		np = (NumberPicker) findViewById(R.id.np);
 		np.setMaxValue(120);
 		np.setMinValue(0);
 		np.setValue(30);
-
-		Button tosButton = (Button) findViewById(R.id.button1);
-		tosButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
-				startActivity(intent);
-			}
-		});
 	}
-	
-	private void isInputOK() {
-		
-		Toast.makeText(getApplicationContext(), "Is the phone number correct?", Toast.LENGTH_SHORT).show();
-		
+
+	private boolean isInputOK() {
+		String phoneNumberRegex = "[\\d-+]{6,12}";
+		String phoneNumberInput = ((TextView) findViewById(R.id.phoneNumberEditText)).getText().toString();
+		if (! phoneNumberInput.matches(phoneNumberRegex)) {
+			Toast.makeText(getApplicationContext(), "Phone number should contain 6 to 12 digits, '+'s and '-'s", 
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
 	}
 
 	/**

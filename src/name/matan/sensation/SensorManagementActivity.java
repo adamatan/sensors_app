@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ToggleButton;
 import android.support.v4.app.NavUtils;
 
 public class SensorManagementActivity extends Activity {
@@ -12,7 +16,15 @@ public class SensorManagementActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_management);        
-        
+        Button allOnButton = (Button) findViewById(R.id.allOnButton);
+        allOnButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ToggleButton accelerometerToggle = (ToggleButton) findViewById(R.id.accelerometerToggleButton);
+				
+			}
+		});
     }
 
     @Override
