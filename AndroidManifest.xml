@@ -3,8 +3,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
@@ -36,6 +36,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="name.matan.sensation.MainActivity" />
         </activity>
+        <activity
+            android:name=".CellLocationSensorActivity"
+            android:label="@string/title_activity_location_sensor_page" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="name.matan.sensation.SensorManagementActivity" />
+        </activity>
+        <activity
+            android:name=".CellularLocationLogActivity"
+            android:label="@string/title_activity_cellular_location_log" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Enable Google Maps -->
+        <uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>

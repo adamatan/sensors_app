@@ -31,16 +31,39 @@
     <string name="tos_activity_title">Terms of Service</string>
     <string name="tos_activity_url">https://sites.google.com/site/edgeofinternet/agreement</string>
     <string name="title_activity_sensor_management">Manage Sensor Logging</string>
-    
+
     <!-- Sensor Management Activity -->
     <string name="sensor_management_title">Manage Sensor Logging</string>
     <string name="sensor_management_all_on">All ON</string>
     <string name="sensor_management_all_off">All OFF</string>
     <string name="sensor_management_more_data">More…</string>
     <string name="sensor_management_accelerometer_label">Accelerometer</string>
+    <string name="sensor_management_accelerometer_toggle_tag">sample_accelerometer_on</string>
     <string name="sensor_management_gps_label">GPS</string>
+    <string name="sensor_management_gps_toggle_tag">sample_gps_on</string>
     <string name="sensor_management_cell_location_label">Cell Location</string>
+    <string name="sensor_management_cell_location_toggle_tag">sample_cell_location_on</string>
     <string name="sensor_management_gyro_label">Gyro</string>
-    
+    <string name="sensor_management_gyro_toggle_tag">sample_gyro_on</string>
+    <string name="sensor_management_update_frequency_label">Update frequency</string>
+    <string name="sensor_management_upload_frequency_label">Upload frequency</string>
+    <string name="sensor_management_update_now_button">Update now</string>
 
+    <string-array name="sensor_management_update_frequency">
+        <item>Normal</item>
+        <item>Medium</item>
+        <item>Fast</item>
+    </string-array>
+
+    <!-- Preferences keys -->
+    <string name="is_first_time_preferences_set">first_time_preferences</string>
+    <string name="title_activity_location_sensor_page">Cellular Location Sensor</string>
+    <string name="title_activity_cellular_location_log">CellularLocationLogActivity</string>
+    
+    <!-- Cellular Location Activity -->
+    <string name="cellular_location_activity_text_view_title">Cellular Location Log</string>
+    <string name="cellular_location_lat_text_title">Latitude:</string>
+    <string name="cellular_location_lon_text_title">Longitude:</string>
+    <string name="cellular_location_lat_lon_text_placeholder">Waiting for reading</string>
+    
 </resources>

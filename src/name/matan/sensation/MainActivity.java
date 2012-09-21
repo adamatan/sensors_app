@@ -1,20 +1,16 @@
 package name.matan.sensation;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.Format;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,14 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Registration form with link to agreement page.
+ * Registration form with link to agreement (Terms Of Service) page.
  * @author adamatan
- *
  */
+
 public class MainActivity extends Activity {
 
-	private NumberPicker np;
-
+	// When set to "false", skips file upload and form field verifications
+	private boolean fullMode=true;  
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,42 +40,42 @@ public class MainActivity extends Activity {
 		setNumberPicker();
 		setAgreeToTosButton();
 		
-		
+		Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
+		startActivity(intent);
 	}
 
+	/**
+	 * Saves the form details (phone UDID, gender and age) to a local file.
+	 */
 	private void saveTosToFile() {
-		
 		Date date = new Date();
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd--HH:mm:ss z");
+		DateFormat formatter = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_z");
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String timestamp = formatter.format(date);
 		String fileContents = String.format("User agreed to TOS, %s\nPhone UDID:%s\nGender:%d\nAge:%d\n", 
 				timestamp, getPhoneUdid(), getGenderAsNumber(), getAgeNumberPicker().getValue());
 		String filename = String.format("%s_%s_agreement.txt", getPhoneUdid(), timestamp);
-		File file = new File(Environment.getExternalStorageDirectory(), filename);
-		FileOutputStream fos;
-		byte[] data = fileContents.getBytes();
-		try {
-		    fos = new FileOutputStream(file);
-		    fos.write(data);
-		    fos.flush();
-		    fos.close();
-			Toast.makeText(getApplicationContext(), "File saved: "+filename, Toast.LENGTH_LONG).show();
-		} catch (FileNotFoundException e) {
-			Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		} catch (IOException e) {
-			Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
+		FileWriter fw = new FileWriter(this.getApplicationContext(), filename);
+		if (fw.write(fileContents)) {
+			Log.i(this.getClass().getName(), "TOS file written successfully");
+		} else {
+			Log.w(this.getClass().getName(), "Error writing TOS file - continuing anyways.");
 		}
+		
+		Runnable uploader = new FTPUploader(this.getApplicationContext(), filename);
+		new Thread(uploader).start();
 	}
 
+	
 	private void setAgreeToTosButton() {
 		Button tosButton = (Button) findViewById(R.id.agreeToTosButton);
 		tosButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (isInputOK()) {
-					saveTosToFile();
+					if (fullMode) {
+						saveTosToFile();
+					}
 					Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
 					startActivity(intent);
 				}
@@ -87,20 +84,27 @@ public class MainActivity extends Activity {
 
 	}
 
+	/**
+	 * Set number picker values (can not be set from XML, apparently):
+	 * http://stackoverflow.com/questions/12317960/android-numberpicker-set-min-max-default-from-xml
+	 */
 	private void setNumberPicker() {
-		np = (NumberPicker) findViewById(R.id.ageNumberPicker);
+		NumberPicker np = (NumberPicker) findViewById(R.id.ageNumberPicker);
 		np.setMaxValue(120);
 		np.setMinValue(12);
 		np.setValue(30);
 	}
 
+	/**
+	 * Asserts the validity of the form input fields.
+	 * @return true iff the form is valid.
+	 */
 	private boolean isInputOK() {
+		
 		// Assert phone number
 		String phoneNumberRegex = "[\\d-+]{6,12}";
 		String phoneNumberInput = getPhoneUdid();
-		boolean doChecks=true;
-		
-		if (doChecks) 
+		if (fullMode) 
 		if (! phoneNumberInput.matches(phoneNumberRegex)) {
 			Toast.makeText(getApplicationContext(), "Phone number should contain 6 to 12 digits, '+'s and '-'s", 
 					Toast.LENGTH_SHORT).show();
@@ -112,7 +116,7 @@ public class MainActivity extends Activity {
 		String maleText = getString(R.string.gender_male);
 		String femaleText = getString(R.string.gender_female);
 
-		if (doChecks)
+		if (fullMode)
 		if (! (selectedGenderText.equals(maleText) || selectedGenderText.equals(femaleText))) {
 			Toast.makeText(getApplicationContext(), 
 					String.format("Gender can be either %s or %s, not %s", maleText, femaleText, selectedGenderText), 
@@ -125,15 +129,13 @@ public class MainActivity extends Activity {
 		int ageInput = ageNumberPicker.getValue();
 		int minAge = ageNumberPicker.getMinValue();
 		int maxAge = ageNumberPicker.getMaxValue();
-		if (doChecks)
+		if (fullMode)
 		if (! (ageInput>=minAge && ageInput<=maxAge)) {
 			String errorMessage = String.format("Are you really %d years old? Age should be between %d and %d.", 
 					ageInput, minAge, maxAge);
 			Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
 			return false;
 		}
-		
-		
 		return true;
 	}
 
@@ -163,10 +165,12 @@ public class MainActivity extends Activity {
 	 * Credit: http://www.androidhive.info/2011/09/how-to-show-alert-dialog-in-android/
 	 */
 	public void onClick(View v) {
+		// Make sure the user really wants to view the TOS
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 		alertDialog.setTitle(getString(R.string.tos_alert_title));
 		alertDialog.setMessage(getString(R.string.tos_alert_text));
 		alertDialog.setIcon(R.drawable.bananas_small);
+
 		// Yes - open the TOS
 		alertDialog.setPositiveButton(getString(R.string.tos_alert_button_yes), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,int which) {

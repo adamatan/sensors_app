@@ -1,13 +1,17 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@drawable/polonez_car"
+    android:tileMode="mirror" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="vertical" >
+
+        <requestFocus />
 
         <TextView
             android:id="@+id/textView1"
@@ -43,7 +47,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp" >
+            android:layout_marginTop="25dp" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -65,6 +69,7 @@
 
                 <ToggleButton
                     android:id="@+id/accelerometerToggleButton"
+                    android:tag="@string/sensor_management_accelerometer_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -107,7 +112,8 @@
                 android:minWidth="90dp" >
 
                 <ToggleButton
-                    android:id="@+id/toggleGps"
+                    android:id="@+id/GpsToggleButton"
+                    android:tag="@string/sensor_management_gps_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -150,7 +156,8 @@
                 android:minWidth="90dp" >
 
                 <ToggleButton
-                    android:id="@+id/toggleCellLocatin"
+                    android:id="@+id/CellLocatinToggleButton"
+                    android:tag="@string/sensor_management_cell_location_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -193,9 +200,10 @@
                 android:minWidth="90dp" >
 
                 <ToggleButton
-                    android:id="@+id/toggleGyro"
+                    android:id="@+id/GyroToggleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="@string/sensor_management_gyro_toggle_tag"
                     android:checked="true"
                     android:textOff="off"
                     android:textOn="on" />
@@ -209,6 +217,90 @@
                 android:text="@string/sensor_management_more_data"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
-    </LinearLayout>
+        
+        <!--  Choose update frequency -->
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="left" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="160dp" >
+
+                <TextView
+                    android:id="@+id/update_frequency_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sensor_management_update_frequency_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>            
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                
+            <Spinner
+                android:id="@+id/sensor_management_update_frequency_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="left" ><LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="160dp" >
+
+                <TextView
+                    android:id="@+id/upload_frequency_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sensor_management_upload_frequency_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" >
+
+                <TimePicker
+                    android:id="@+id/timePicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        
+        
+
+        <!--  Update now button -->
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dp" >
+
+            <Button
+                android:id="@+id/sensorManagementUpdateNowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_management_update_now_button" />
+
+        </LinearLayout>
+        
+        
+        
+        
+</LinearLayout>
 
 </ScrollView>
