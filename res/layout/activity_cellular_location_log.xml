@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,7 +22,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/cellLocationLatTitle"
@@ -41,7 +43,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/cellLocationLonTitle"
@@ -58,6 +61,49 @@
                 android:text="@string/cellular_location_lat_lon_text_placeholder"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/cellLocationNumberOfSamplesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="120dp"
+                android:text="@string/cellular_location_sample_list_size_text_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/cellLocationNumberOfSamples"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cellular_location_sample_list_initial_size"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>        
+        
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="15dp" 
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <com.google.android.maps.MapView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mapview"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:apiKey="0p_1xpUMgInXUFvlu-OFzdK2F_Gaj4bdlYp10Hw"
+            android:clickable="true" />
     </LinearLayout>
 
 </RelativeLayout>

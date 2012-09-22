@@ -65,5 +65,14 @@
     <string name="cellular_location_lat_text_title">Latitude:</string>
     <string name="cellular_location_lon_text_title">Longitude:</string>
     <string name="cellular_location_lat_lon_text_placeholder">Waiting for reading</string>
+    <string name="cellular_location_sample_list_size_text_label">Number of samples taken:</string>
+    <string name="cellular_location_sample_list_initial_size">0</string>
+    
+    <!-- Service -->
+    <string name="local_service_started">Local Service Started!</string>
+    <string name="local_service_stopped">Local Service Stopped!</string>
+    <string name="local_service_label">Local Service Lebel</string>
+    <string name="local_service_connected">Local Service Connected!</string>
+    <string name="local_service_disconnected">Local Service Disconnected!</string>
     
 </resources>
