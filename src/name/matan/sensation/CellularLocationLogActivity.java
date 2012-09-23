@@ -2,16 +2,13 @@ package name.matan.sensation;
 
 import java.util.List;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.Menu;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
@@ -20,8 +17,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-
-import android.os.Bundle;
 
 public class CellularLocationLogActivity extends MapActivity {
 

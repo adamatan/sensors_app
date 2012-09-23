@@ -55,6 +55,12 @@
 
         <!-- Enable Google Maps -->
         <uses-library android:name="com.google.android.maps" />
+        // Declare the logging as a service
+
+        <service android:name="LocalService" 
+            android:icon="@drawable/stat_sample"
+            android:label="@string/local_service_name">
+        </service>
     </application>
 
 </manifest>

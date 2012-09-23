@@ -3,12 +3,8 @@ package name.matan.sensation;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
-import android.os.IBinder;
-import android.widget.Toast;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;

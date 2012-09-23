@@ -31,10 +31,12 @@ public class LocalService extends Service {
     @Override
     public void onCreate() {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
+        Log.i("LocalService", "onCreate");
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
     }
+    
+    public int getNumber() {return 42;}
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
