@@ -82,14 +82,6 @@ public class SensorManagementActivity extends Activity {
         setPreferences();
         startLongRunningOperation();
         
-/*        Log.e(SensorManagementActivity.class.toString(), "Binding service");
-        Log.e(SensorManagementActivity.class.toString(), String.format("Binding %b", mIsBound));
-        doBindService();
-        Log.e(SensorManagementActivity.class.toString(), "Binding done");
-        Log.e(SensorManagementActivity.class.toString(), String.format("Binding %b", mIsBound));
-*/        
-        
-        
         
         allOnButton.setOnClickListener(new OnClickListener() {
 			@Override
