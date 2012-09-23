@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class SensorManagementActivity extends Activity {
 	private Button allOffButton;
 	
 	private TextView cellLocationButton;
+	private TextView threadCounter;
 	
 	private ToggleButton accelerometerToggle;
 	private ToggleButton gpsToggle;
@@ -44,8 +46,16 @@ public class SensorManagementActivity extends Activity {
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
 	
+	final Handler mHandler = new Handler();
+	private int counter=1;
 	
-	// Service code - begin
+    final Runnable mUpdateResults = new Runnable() {
+        public void run() {
+        	threadCounter.setText(String.format("From thread %d!", counter));
+        }
+    };
+	
+/*	// Service code - begin
 	private LocalService mBoundService;
 	private boolean mIsBound;
 	
@@ -99,12 +109,29 @@ public class SensorManagementActivity extends Activity {
 	}
 	
 	// Service code - end
+*/	
 
-	
-	
-	
-	
-	
+
+    
+    
+    protected void startLongRunningOperation() {
+        Thread t = new Thread() {
+            public void run() {
+            	while (true) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+	                mHandler.post(mUpdateResults);
+	                counter++;
+            	}
+            }
+        };
+        t.start();
+    }
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,13 +139,14 @@ public class SensorManagementActivity extends Activity {
         
         setButtons();
         setPreferences();
+        startLongRunningOperation();
         
-        Log.e(SensorManagementActivity.class.toString(), "Binding service");
+/*        Log.e(SensorManagementActivity.class.toString(), "Binding service");
         Log.e(SensorManagementActivity.class.toString(), String.format("Binding %b", mIsBound));
         doBindService();
         Log.e(SensorManagementActivity.class.toString(), "Binding done");
         Log.e(SensorManagementActivity.class.toString(), String.format("Binding %b", mIsBound));
-        
+*/        
         
         
         
@@ -166,6 +194,8 @@ public class SensorManagementActivity extends Activity {
 	private void setButtons() {
 		allOnButton 	= (Button) findViewById(R.id.allOnButton);
 		allOffButton 	= (Button) findViewById(R.id.allOffButton);
+		
+		threadCounter   = (TextView) findViewById(R.id.sensorManagementThreadCounter);
 		cellLocationButton = (TextView) findViewById(R.id.cellLocationMoreButton);
 		
 		accelerometerToggle = (ToggleButton) findViewById(R.id.accelerometerToggleButton);

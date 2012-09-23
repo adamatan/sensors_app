@@ -48,6 +48,8 @@
     <string name="sensor_management_update_frequency_label">Update frequency</string>
     <string name="sensor_management_upload_frequency_label">Upload frequency</string>
     <string name="sensor_management_update_now_button">Update now</string>
+    <string name="sensor_management_thread_counter">Thread inactive - no updates</string>
+    
 
     <string-array name="sensor_management_update_frequency">
         <item>Normal</item>

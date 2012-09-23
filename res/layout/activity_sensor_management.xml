@@ -23,6 +23,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/sensorManagementThreadCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_management_thread_counter"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -69,10 +83,10 @@
 
                 <ToggleButton
                     android:id="@+id/accelerometerToggleButton"
-                    android:tag="@string/sensor_management_accelerometer_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:tag="@string/sensor_management_accelerometer_toggle_tag"
                     android:textOff="off"
                     android:textOn="on" />
             </LinearLayout>
@@ -113,10 +127,10 @@
 
                 <ToggleButton
                     android:id="@+id/GpsToggleButton"
-                    android:tag="@string/sensor_management_gps_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:tag="@string/sensor_management_gps_toggle_tag"
                     android:textOff="off"
                     android:textOn="on" />
             </LinearLayout>
@@ -157,10 +171,10 @@
 
                 <ToggleButton
                     android:id="@+id/CellLocatinToggleButton"
-                    android:tag="@string/sensor_management_cell_location_toggle_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:tag="@string/sensor_management_cell_location_toggle_tag"
                     android:textOff="off"
                     android:textOn="on" />
             </LinearLayout>
@@ -203,8 +217,8 @@
                     android:id="@+id/GyroToggleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="@string/sensor_management_gyro_toggle_tag"
                     android:checked="true"
+                    android:tag="@string/sensor_management_gyro_toggle_tag"
                     android:textOff="off"
                     android:textOn="on" />
             </LinearLayout>
@@ -217,9 +231,9 @@
                 android:text="@string/sensor_management_more_data"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
-        
-        <!--  Choose update frequency -->
-        
+
+        <!-- Choose update frequency -->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -237,24 +251,26 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sensor_management_update_frequency_label"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>            
-            
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                
-            <Spinner
-                android:id="@+id/sensor_management_update_frequency_spinner"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" >
+
+                <Spinner
+                    android:id="@+id/sensor_management_update_frequency_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
-        
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="left" ><LinearLayout
+            android:gravity="left" >
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:minWidth="160dp" >
@@ -275,15 +291,11 @@
                     android:id="@+id/timePicker1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
             </LinearLayout>
-
         </LinearLayout>
-        
-        
 
-        <!--  Update now button -->
-        
+        <!-- Update now button -->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -295,12 +307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sensor_management_update_now_button" />
-
         </LinearLayout>
-        
-        
-        
-        
-</LinearLayout>
+    </LinearLayout>
 
 </ScrollView>
