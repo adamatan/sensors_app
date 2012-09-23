@@ -29,9 +29,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	// When set to "false", skips file upload and form field verifications
-	private boolean fullMode=true;  
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,9 +70,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (isInputOK()) {
-					if (fullMode) {
 						saveTosToFile();
-					}
 					Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
 					startActivity(intent);
 				}
@@ -104,7 +99,6 @@ public class MainActivity extends Activity {
 		// Assert phone number
 		String phoneNumberRegex = "[\\d-+]{6,12}";
 		String phoneNumberInput = getPhoneUdid();
-		if (fullMode) 
 		if (! phoneNumberInput.matches(phoneNumberRegex)) {
 			Toast.makeText(getApplicationContext(), "Phone number should contain 6 to 12 digits, '+'s and '-'s", 
 					Toast.LENGTH_SHORT).show();
@@ -116,7 +110,6 @@ public class MainActivity extends Activity {
 		String maleText = getString(R.string.gender_male);
 		String femaleText = getString(R.string.gender_female);
 
-		if (fullMode)
 		if (! (selectedGenderText.equals(maleText) || selectedGenderText.equals(femaleText))) {
 			Toast.makeText(getApplicationContext(), 
 					String.format("Gender can be either %s or %s, not %s", maleText, femaleText, selectedGenderText), 
@@ -129,7 +122,6 @@ public class MainActivity extends Activity {
 		int ageInput = ageNumberPicker.getValue();
 		int minAge = ageNumberPicker.getMinValue();
 		int maxAge = ageNumberPicker.getMaxValue();
-		if (fullMode)
 		if (! (ageInput>=minAge && ageInput<=maxAge)) {
 			String errorMessage = String.format("Are you really %d years old? Age should be between %d and %d.", 
 					ageInput, minAge, maxAge);
