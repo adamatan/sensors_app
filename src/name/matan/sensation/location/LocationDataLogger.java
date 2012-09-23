@@ -38,7 +38,7 @@ Serializable {
 	}
 
 	@Override
-	public LocationWrapper getData() {
+	public LocationWrapper getCurrentReading() {
 		LocationWrapper lw = new LocationWrapper(this.currentLat, this.currentLon);
 		Log.e("LDL", lw.toString());
 		return lw;

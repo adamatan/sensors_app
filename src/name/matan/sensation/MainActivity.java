@@ -36,9 +36,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		setNumberPicker();
 		setAgreeToTosButton();
-		
-		Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
-		startActivity(intent);
 	}
 
 	/**
@@ -72,6 +69,7 @@ public class MainActivity extends Activity {
 				if (isInputOK()) {
 						saveTosToFile();
 					Intent intent = new Intent(MainActivity.this, SensorManagementActivity.class);
+					intent.putExtra("UDID", getPhoneUdid());
 					startActivity(intent);
 				}
 			}

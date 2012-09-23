@@ -1,14 +1,28 @@
 package name.matan.sensation.location;
 
-public class LocationWrapper {
+import java.io.Serializable;
 
+public class LocationWrapper implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1121037904055934073L;
 	private double lat;
 	private double lon;
-	
+
 	public LocationWrapper(double lat, double lon) {
 		super();
 		this.lat = lat;
 		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLon() {
+		return lon;
 	}
 	
 	@Override

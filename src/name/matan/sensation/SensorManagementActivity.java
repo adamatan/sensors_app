@@ -62,7 +62,6 @@ public class SensorManagementActivity extends Activity {
 	private Button allOffButton;
 
 	private TextView cellLocationButton;
-	private TextView threadCounter;
 
 	private ToggleButton accelerometerToggle;
 	private ToggleButton gpsToggle;
@@ -79,24 +78,36 @@ public class SensorManagementActivity extends Activity {
 	private int uploadFrequencyDelaySeconds;
 
 	long lastUpdateTimeMillis;
-	
+
+	String udid;
+
 	final Handler mHandler = new Handler();
 	private int counter=1;
 	private volatile SensorReadingsThread updaterThread;
-	
+
 	private SensorDataLogger<LocationWrapper> locationDataLogger;
 
 	final Runnable mUpdateResults = new Runnable() {
 		public void run() {
 			locationDataLogger.logData();
-			String latLon = locationDataLogger.getAllValues().isEmpty() ? "None" : locationDataLogger.getAllValues().get(locationDataLogger.getAllValues().size()-1).toString();
-			String logSize = locationDataLogger.getAllValues().isEmpty() ? "None" : String.format("%d", locationDataLogger.getAllValues().size());
-			threadCounter.setText(String.format("From thread %d, delay %d! %s %s %d", 
-					counter, updaterThread.getDelayMilliseconds(), latLon, 
-					logSize, uploadFrequencyDelaySeconds));
-			
+
 			if (System.currentTimeMillis()>(lastUpdateTimeMillis+uploadFrequencyDelaySeconds*1000)) {
 				Log.i(SensorManagementActivity.class.getSimpleName(), "Time to upload results!");
+				String filename=udid+"_"+TimeStamper.formatNow("yyyy-MM-dd-HHmm-ss");
+				FileWriter fw = new FileWriter(SensorManagementActivity.this, filename);
+				StringBuilder sb = new StringBuilder();
+
+				if (cellLocationToggle.isChecked()) {
+					List<String> logFileEntries = locationDataLogger.getLogLinesForFile();
+					for (String s : logFileEntries) {
+						sb.append(s);
+					}
+				}
+
+				fw.write(sb.toString());
+
+				Runnable uploader = new FTPUploader(SensorManagementActivity.this, filename);
+				new Thread(uploader).start();
 				lastUpdateTimeMillis=System.currentTimeMillis();
 			}
 			else {
@@ -106,7 +117,7 @@ public class SensorManagementActivity extends Activity {
 			}
 		}
 	};
-	
+
 
 	protected void startUpdateThread() {
 		updaterThread = new SensorReadingsThread(500);
@@ -117,7 +128,7 @@ public class SensorManagementActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sensor_management);
-
+		this.udid=getIntent().getStringExtra("UDID");
 		startUpdateThread();
 		setButtons();
 		setPreferences();
@@ -169,7 +180,6 @@ public class SensorManagementActivity extends Activity {
 		allOnButton 	= (Button) findViewById(R.id.allOnButton);
 		allOffButton 	= (Button) findViewById(R.id.allOffButton);
 
-		threadCounter   = (TextView) findViewById(R.id.sensorManagementThreadCounter);
 		cellLocationButton = (TextView) findViewById(R.id.cellLocationMoreButton);
 
 		accelerometerToggle = (ToggleButton) findViewById(R.id.accelerometerToggleButton);
@@ -197,6 +207,7 @@ public class SensorManagementActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(SensorManagementActivity.this, CellularLocationLogActivity.class);
+				intent.putExtra(getString(R.string.logger_data_object), locationDataLogger);
 				startActivity(intent);
 			}
 		});
@@ -240,12 +251,12 @@ public class SensorManagementActivity extends Activity {
 				updatePreferencesFromButtons();
 			}
 		});
-		
+
 		uploadTimePicker.setIs24HourView(true);
 		uploadTimePicker.setCurrentHour(0);
 		uploadTimePicker.setCurrentMinute(10);
 		setUploadFrequencyFromUI();
-		
+
 		lastUpdateTimeMillis=System.currentTimeMillis();
 	}
 
@@ -257,7 +268,7 @@ public class SensorManagementActivity extends Activity {
 			this.setUploadFrequencyFromUI();
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_sensor_management, menu);

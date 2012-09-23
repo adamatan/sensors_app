@@ -29,12 +29,12 @@
                 android:id="@+id/cellLocationLatTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="120dp"
-                android:text="@string/cellular_location_lat_text_title"
+                android:minWidth="190dp"
+                android:text="@string/cellular_last_location_time_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/cellLocationLatText"
+                android:id="@+id/cellLocationSampleTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cellular_location_lat_lon_text_placeholder"
@@ -50,18 +50,17 @@
                 android:id="@+id/cellLocationLonTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="120dp"
-                android:text="@string/cellular_location_lon_text_title"
+                android:minWidth="190dp"
+                android:text="@string/cellular_last_location_location_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/cellLocationLonText"
+                android:id="@+id/cellLocationSampleReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cellular_location_lat_lon_text_placeholder"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
-        
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,18 +68,18 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/cellLocationNumberOfSamplesTextView"
+                android:id="@+id/numberOfReadingsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="120dp"
-                android:text="@string/cellular_location_sample_list_size_text_label"
+                android:minWidth="190dp"
+                android:text="@string/cellular_location_number_of_readings_text_label"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/cellLocationNumberOfSamples"
+                android:id="@+id/cellLocationNumberOfReadingsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cellular_location_sample_list_initial_size"
+                android:text="@string/cellular_location_lat_lon_text_placeholder"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>        
         

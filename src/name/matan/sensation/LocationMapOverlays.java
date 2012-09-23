@@ -13,19 +13,12 @@ import com.google.android.maps.OverlayItem;
  * Based on https://developers.google.com/maps/documentation/android/hello-mapview
  * @author adamatan
  */
+@SuppressWarnings("rawtypes")
 public class LocationMapOverlays extends ItemizedOverlay {
 
 	private ArrayList<OverlayItem> overlaysList = new ArrayList<OverlayItem>();
 	private Context applicatonContext;
 
-	
-	
-	
-	
-	
-	
-	
-	
 	public LocationMapOverlays(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
 		this.applicatonContext=context;

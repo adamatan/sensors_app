@@ -64,11 +64,10 @@
     
     <!-- Cellular Location Activity -->
     <string name="cellular_location_activity_text_view_title">Cellular Location Log</string>
-    <string name="cellular_location_lat_text_title">Latitude:</string>
-    <string name="cellular_location_lon_text_title">Longitude:</string>
-    <string name="cellular_location_lat_lon_text_placeholder">Waiting for reading</string>
-    <string name="cellular_location_sample_list_size_text_label">Number of samples taken:</string>
-    <string name="cellular_location_sample_list_initial_size">0</string>
+    <string name="cellular_last_location_time_title">Last sample time:</string>
+    <string name="cellular_last_location_location_title">Last sample reading:</string>
+    <string name="cellular_location_lat_lon_text_placeholder">N/A</string>
+    <string name="cellular_location_number_of_readings_text_label">Number of Readings:</string>
     
     <!-- Service -->
     <string name="local_service_started">Logging your sensors, behind the curtain</string>
@@ -77,4 +76,7 @@
     <string name="local_service_connected">Local Service Connected!</string>
     <string name="local_service_disconnected">Local Service Disconnected (you should never see me)!</string>
     <string name="local_service_name">Background local service</string>
+    
+    <!-- Logger data object -->
+    <string name="logger_data_object">LoggerDataObject</string>
 </resources>

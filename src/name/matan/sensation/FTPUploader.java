@@ -26,7 +26,7 @@ public class FTPUploader extends Thread {
 		try {
 			Log.i("FTPUploader", String.format("Uploading %s to ftp", 
 					this.filename));
-			ftpClient.connect(InetAddress.getByName("matan.name"));
+			ftpClient.connect(InetAddress.getByName("192.117.150.233"));
 			ftpClient.login("anonymous", "");
 			ftpClient.changeWorkingDirectory("/home/adamatan");
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
