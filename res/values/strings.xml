@@ -46,7 +46,7 @@
     <string name="sensor_management_gyro_label">Gyro</string>
     <string name="sensor_management_gyro_toggle_tag">sample_gyro_on</string>
     <string name="sensor_management_update_frequency_label">Update frequency</string>
-    <string name="sensor_management_upload_frequency_label">Upload frequency</string>
+    <string name="sensor_management_upload_frequency_label">Upload frequency (HH:MM)</string>
     <string name="sensor_management_update_now_button">Update now</string>
     <string name="sensor_management_thread_counter">Thread inactive - no updates</string>
     

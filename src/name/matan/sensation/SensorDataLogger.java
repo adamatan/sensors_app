@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
+import android.content.Context;
+
 /**
  * Stores the data logged for a specific sensor.
  * @author adamatan
@@ -21,7 +23,7 @@ public abstract class SensorDataLogger<T> {
 	private Map<Date, T> data 	 = new TreeMap<Date, T>();
 	private Map<Date, T> oldData = new TreeMap<Date, T>();
 	
-	public SensorDataLogger(int sensorId) {
+	public SensorDataLogger(int sensorId, Context context) {
 		this.sensorId=sensorId;
 	}
 	

@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sensor_management_thread_counter"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
         <LinearLayout
@@ -271,9 +271,8 @@
             android:gravity="left" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:minWidth="160dp" >
+                android:layout_width="160dp"
+                android:layout_height="match_parent" >
 
                 <TextView
                     android:id="@+id/upload_frequency_text_view"
@@ -288,7 +287,7 @@
                 android:layout_height="match_parent" >
 
                 <TimePicker
-                    android:id="@+id/timePicker1"
+                    android:id="@+id/uploadFrequencyTimePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

@@ -44,10 +44,12 @@ public class CellularLocationLogActivity extends MapActivity {
         getCellLocation();
     }
 
+    /**
+     * Sets UI elements in private members.
+     */
 	private void setElementsById() {
 		this.latTextView = (TextView) findViewById(R.id.cellLocationLatText);
         this.lonTextView = (TextView) findViewById(R.id.cellLocationLonText);
-        
         this.mapView = (MapView) findViewById(R.id.mapview);
         this.mapController = mapView.getController();
         mapView.setBuiltInZoomControls(true);
@@ -58,11 +60,9 @@ public class CellularLocationLogActivity extends MapActivity {
 
 	private void getCellLocation() {
 		    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
 		    LocationListener locationListener = new LocationListener() {
 		        public void onLocationChanged(Location location) {
 		        	if (location!=null) {
-		        		
 		        		double latitude = location.getLatitude();
 		        		double longitude = location.getLongitude();
 		        		int latitudeE6 	= (int) (1e6 * latitude);
@@ -103,7 +103,6 @@ public class CellularLocationLogActivity extends MapActivity {
 	  this.numberOfSamepls=savedInstanceState.getInt("numberOfSamples");
 	  this.numberOfSamplesText.setText(savedInstanceState.getString("NumberOfSamplesText"));
 	}
-	
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {

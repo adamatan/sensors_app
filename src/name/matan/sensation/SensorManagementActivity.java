@@ -3,15 +3,13 @@ package name.matan.sensation;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.matan.sensation.location.LocationDataLogger;
+import name.matan.sensation.location.LocationWrapper;
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -24,7 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 public class SensorManagementActivity extends Activity {
@@ -77,16 +75,38 @@ public class SensorManagementActivity extends Activity {
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
 
+	private TimePicker uploadTimePicker;
+	private int uploadFrequencyDelaySeconds;
+
+	long lastUpdateTimeMillis;
+	
 	final Handler mHandler = new Handler();
 	private int counter=1;
 	private volatile SensorReadingsThread updaterThread;
+	
+	private SensorDataLogger<LocationWrapper> locationDataLogger;
 
 	final Runnable mUpdateResults = new Runnable() {
 		public void run() {
-			threadCounter.setText(String.format("From thread %d, delay %d!", 
-					counter, updaterThread.getDelayMilliseconds()));
+			locationDataLogger.logData();
+			String latLon = locationDataLogger.getAllValues().isEmpty() ? "None" : locationDataLogger.getAllValues().get(locationDataLogger.getAllValues().size()-1).toString();
+			String logSize = locationDataLogger.getAllValues().isEmpty() ? "None" : String.format("%d", locationDataLogger.getAllValues().size());
+			threadCounter.setText(String.format("From thread %d, delay %d! %s %s %d", 
+					counter, updaterThread.getDelayMilliseconds(), latLon, 
+					logSize, uploadFrequencyDelaySeconds));
+			
+			if (System.currentTimeMillis()>(lastUpdateTimeMillis+uploadFrequencyDelaySeconds*1000)) {
+				Log.i(SensorManagementActivity.class.getSimpleName(), "Time to upload results!");
+				lastUpdateTimeMillis=System.currentTimeMillis();
+			}
+			else {
+				long diff=(System.currentTimeMillis()-lastUpdateTimeMillis)/1000;
+				Log.e(SensorManagementActivity.class.getSimpleName(), 
+						String.format("%d passed, %d seconds till next upload", diff, uploadFrequencyDelaySeconds-diff));
+			}
 		}
 	};
+	
 
 	protected void startUpdateThread() {
 		updaterThread = new SensorReadingsThread(500);
@@ -101,6 +121,7 @@ public class SensorManagementActivity extends Activity {
 		startUpdateThread();
 		setButtons();
 		setPreferences();
+		locationDataLogger = new LocationDataLogger(4, this);
 
 		allOnButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -136,6 +157,7 @@ public class SensorManagementActivity extends Activity {
 	}
 
 	private void updatePreferencesFromButtons() {
+		setUploadFrequencyFromUI();
 		for (ToggleButton button:allToggleButtons) {
 			String preferencesKey = (String) button.getTag();
 			editor.putBoolean(preferencesKey, button.isChecked());
@@ -155,6 +177,7 @@ public class SensorManagementActivity extends Activity {
 		cellLocationToggle	= (ToggleButton) findViewById(R.id.CellLocatinToggleButton);
 		gyroToggle 			= (ToggleButton) findViewById(R.id.GyroToggleButton);
 
+		uploadTimePicker    = (TimePicker) findViewById(R.id.uploadFrequencyTimePicker);
 
 		// Set All-On, All-off buttons
 		allToggleButtons 	= new ArrayList<ToggleButton>();
@@ -217,8 +240,24 @@ public class SensorManagementActivity extends Activity {
 				updatePreferencesFromButtons();
 			}
 		});
+		
+		uploadTimePicker.setIs24HourView(true);
+		uploadTimePicker.setCurrentHour(0);
+		uploadTimePicker.setCurrentMinute(10);
+		setUploadFrequencyFromUI();
+		
+		lastUpdateTimeMillis=System.currentTimeMillis();
 	}
 
+	private void setUploadFrequencyFromUI() {
+		this.uploadFrequencyDelaySeconds=uploadTimePicker.getCurrentMinute()*60+
+				uploadTimePicker.getCurrentHour()*3600;
+		if (this.uploadFrequencyDelaySeconds==0) {
+			uploadTimePicker.setCurrentMinute(1);
+			this.setUploadFrequencyFromUI();
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_sensor_management, menu);
