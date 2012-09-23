@@ -39,10 +39,15 @@ public abstract class SensorDataLogger<T> {
 		return result;
 	}
 	
-	public void putData(String dataString, T rawData) {
+	public void logData() {
 		Date now = new Date();
-		data.put(now, rawData);
+		data.put(now, this.getData());
 	}
+	
+	/**
+	 * Returns the current data from the sensor.
+	 */
+	public abstract T getData();
 
 	public List<T> getAllValues() {
 		List<T> result = new ArrayList<T>();
